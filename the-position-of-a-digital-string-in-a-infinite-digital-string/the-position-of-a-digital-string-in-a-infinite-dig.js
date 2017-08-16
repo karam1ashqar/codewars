@@ -4,30 +4,31 @@
 function findPosition(num) {
   let next = (function() {
     let n = 1;
-    let cnt = 0;
+    let pos = 0;
     let buf = [];
-    return (len) => {
-      while (buf.length < len) {
-        buf.push(...(''+(n++)).split(''));
+    return (len, cs) => {
+      let cl = buf.join('').length;
+      while (cl < len + cs) {
+        let sn = (n++)+'';
+        buf.push(sn);
+        cl += sn.length;
       }
-      let res = buf.join('').substr(0, len);
-      buf.shift();
-      return [res, cnt++];
+      let res = buf.join('');
+      buf = [res.substr(cs)];
+      return [res, (pos += cs) - cs];
     };
   }());
   
   while (1) {
-    let n = next(num.length);
+    let n = next(num.length, 1e4);
     // console.log(n[0]);
-    if (n[0] === num) {
-      return n[1];
-    }
-    if (1e8 < n[1]) {
-      console.log(num);
-      break;
+    let idx = n[0].indexOf(num);
+    if (0 <= idx) {
+      return n[1] + idx;
     }
   }
 }
 
 
 console.log(findPosition('1000000071'));
+// console.log(findPosition('1001'));
