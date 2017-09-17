@@ -13,6 +13,7 @@ function minDistance(n){
   return min;
 }
 
+// https://gist.github.com/gkucmierz/41d47edbd0e5c3753915e9bbfe4ae1b2
 function factors(n) {
   let max = Math.floor(Math.sqrt(n));
   let res = [];
