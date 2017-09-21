@@ -4,6 +4,7 @@ function pathFinder(maze) {
   let m = maze.split(/\n/).map(row=>row.split``);
   let h = m.length;
   let w = m[0].length;
+  let queue = [[0, 0]];
   let mark = (xx, yy) => {
     [[1, 0], [-1, 0], [0, 1], [0, -1], [0, 0]].map(p => {
       let [x, y] = [p[0]+xx, p[1]+yy];
@@ -11,12 +12,17 @@ function pathFinder(maze) {
         if (0 <= y && y < h) {
           if (m[y][x] === '.') {
             m[y][x] = '#';
-            mark(x, y);
+            queue.push([x, y]);
           }
         }
       }
     });
   };
-  mark(0, 0);
+  
+  do {
+    let p = queue.shift();
+    mark(...p);
+  } while (queue.length);
+  
   return m[h-1][w-1] !== '.';
 }
