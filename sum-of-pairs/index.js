@@ -8,5 +8,5 @@ const sum_pairs = (arr, sum) => {
     }
     map[sum - arr[i]] = true;
   }
-  return [];
+  return [][0];
 };
