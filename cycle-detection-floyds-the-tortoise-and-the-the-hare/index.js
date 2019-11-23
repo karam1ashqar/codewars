@@ -5,10 +5,9 @@ const floyd = function(f, x0) {
   let i = 0;
   const map = new WeakMap();
   
-  while (1) {
+  while (!(x in map)) {
     map[x] = i++;
     x = f(x);
-    if (x in map) break;
   }
   
   return  [map[x], i - map[x]];
